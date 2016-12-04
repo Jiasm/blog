@@ -71,3 +71,14 @@ deploy:
   type: git
   repository: https://github.com/Jiasm/jiasm.github.io.git
   branch: master
+
+# Feed
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+
+# Sitemap
+sitemap:
+  path: sitemap.xml
