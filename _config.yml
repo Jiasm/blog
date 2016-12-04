@@ -71,14 +71,3 @@ deploy:
   type: git
   repository: https://github.com/Jiasm/jiasm.github.io.git
   branch: master
-
-# Plugins
-plugins:
-  - hexo-generator-sitemap
-  - hexo-generator-baidu-sitemap
-
-# Sitemap
-sitemap:
-  path: sitemap.xml
-baidusitemap:
-  path: baidusitemap.xml
