@@ -8,9 +8,11 @@
             </a>
         </h1>
         <div class="post-info">
+            <i class="fa fa-calendar"></i>
             <% if(item.date) { %>
                 <span class="date"><%= item.date.format(config.date_format) %></span>
             <% } %>
+            <i class="fa fa-comment-o"></i>
             <% if (theme.comments && theme.comments.disqus_shortname){ %>
                 <a href="<%- item.permalink %>#disqus_thread" class="comments article-comment-link"><%= __('comment') %></a>
             <% } %>

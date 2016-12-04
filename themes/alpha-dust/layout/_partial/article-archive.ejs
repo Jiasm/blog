@@ -1,9 +1,13 @@
 <div class="archive-post">
   <a href="<%- url_for(item.path)%>">
     <span class="archive-date">
+    <i class="fa fa-calendar"></i>
     <%- item.date.format(theme.archive_date_format) %>
     </span>
     <%- item.title || theme.default_post_title || "Untitled" %>
+    <span class="comment-count-wrap">
+      <i class="fa fa-comment-o"></i>
       <span class="ds-thread-count" data-thread-key="<%= item.uuid %>" data-count-type="comments"></span>
+    </span>
   </a>
 </div>

@@ -7,9 +7,12 @@
             </a>
         </h1>
         <div class="post-info">
+            <i class="fa fa-calendar"></i>
             <% if(item.date) { %>
                 <span class="date"><%= item.date.format(config.date_format) %></span>
             <% } %>
+            &nbsp;
+            <i class="fa fa-comment-o"></i>
             <a href="#comments" class="comments ds-thread-count" data-thread-key="<%= item.uuid %>" data-count-type="comments"></a>
             <% if(item.categories && item.categories.first()) { %>
                 <span class="category">
