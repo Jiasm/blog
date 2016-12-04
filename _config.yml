@@ -71,3 +71,9 @@ deploy:
   type: git
   repository: https://github.com/Jiasm/jiasm.github.io.git
   branch: master
+
+# Sitemap
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
