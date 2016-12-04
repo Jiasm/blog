@@ -1,0 +1,72 @@
+
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="<%- url_for(item.path) %>">
+                <%- item.title || theme.default_post_title || __('default_post_title') %>
+            </a>
+        </h1>
+        <div class="post-info">
+            <% if(item.date) { %>
+                <span class="date"><%= item.date.format(config.date_format) %></span>
+            <% } %>
+            <a href="#comments" class="comments ds-thread-count" data-thread-key="<%= item.uuid %>" data-count-type="comments"></a>
+            <% if(item.categories && item.categories.first()) { %>
+                <span class="category">
+                    <a href="<%- config.root + item.categories.first().path  %>"><%- item.categories.first().name %></a>
+                </span>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        <% if (item.photos && item.photos.length){ %>
+            <%- partial('gallery') %>
+        <% } %>
+
+        <!-- Post Content -->
+        <%- item.content %>
+    </div>
+
+    <%
+        var tags = [];
+        if(item.tags && item.tags.length) {
+            item.tags.forEach(function(tag){
+                tags.push('<a href="' + config.root + tag.path + '">#' + tag.name + '</a>');
+            });
+        }
+    %>
+
+    <% if(tags.length) { %>
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <%- tags.join(' ') %>
+        </div>
+    <% } %>
+
+    <!-- Comments -->
+    <% if (theme.comments.duoshuo){ %>
+    <section id="comments">
+      <!-- 多说评论框 start -->
+      <div class="ds-thread" data-thread-key="<%= item.uuid %>" data-title="<%= item.title %>" data-url="<%= page.permalink %>"></div>
+      <!-- 多说评论框 end -->
+      <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+      <script type="text/javascript">
+      var duoshuoQuery = {short_name:'<%= theme.comments.duoshuo %>'};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+        </script>
+      <!-- 多说公共JS代码 end -->
+    </section>
+    <% } %>
+
+</div>

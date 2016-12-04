@@ -1,0 +1,31 @@
+# Logo (Font Awesome Class)
+fa_logo: fa-cube
+
+# Header
+menu:
+  Home: /
+  Archives: /archives
+  About: /about
+  Contact: /contact
+
+# Default post title
+default_post_title: Untitled
+
+# Archive Date Format
+archive_date_format: MMM YYYY
+
+# Comments.
+comments:
+  # Disqus comments
+  duoshuo: jiasm
+
+# Social Accounts
+github_url: https://github.com/jiasm
+email_url: jiashunming@outlook.com
+rss_url: \#
+
+# Footer About Text
+footer_about: "技术=坚持+积累+学习+分享"
+
+# Footer Copyright Line
+footer_copyright: "@jiashunming"

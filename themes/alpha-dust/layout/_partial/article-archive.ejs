@@ -1,0 +1,9 @@
+<div class="archive-post">
+  <a href="<%- url_for(item.path)%>">
+    <span class="archive-date">
+    <%- item.date.format(theme.archive_date_format) %>
+    </span>
+    <%- item.title || theme.default_post_title || "Untitled" %>
+      <span class="ds-thread-count" data-thread-key="<%= item.uuid %>" data-count-type="comments"></span>
+  </a>
+</div>
