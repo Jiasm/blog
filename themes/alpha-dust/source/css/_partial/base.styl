@@ -46,7 +46,20 @@ a:hover
   height: 150px
   @media $xs
     height 60px
-
+.go2top
+  position: fixed
+  right: -2em
+  bottom: 1.5em
+  z-index: 99;
+  text-decoration: none
+  border-bottom: none
+  transition: right .5s
+  &:hover, &:active
+    border-bottom: none
+  &.show {
+    right: 2em
+  }
+// duoshuo reset
 #ds-thread #ds-reset li.ds-tab a
   text-shadow: none!important
   color: $mainColor1!important
