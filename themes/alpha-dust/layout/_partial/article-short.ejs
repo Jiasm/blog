@@ -21,7 +21,7 @@
                     <a href="<%- config.root + item.categories.first().path  %>"><%- item.categories.first().name %></a>
                 </span>
             <% } %>
-            <span class="ds-thread-count" data-thread-key="<%= item.uuid %>" data-count-type="comments"></span>
+            <a class="ds-thread-count" href="<%- url_for(item.path) %>#comments" data-thread-key="<%= item.uuid %>" data-count-type="comments"></a>
         </div>
     </div>
     <% if(item.excerpt) { %>
