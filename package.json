@@ -21,7 +21,8 @@
     "hexo-uuid": "^1.0.1"
   },
   "devDependencies": {
-    "cz-conventional-changelog": "^1.2.0"
+    "cz-conventional-changelog": "^1.2.0",
+    "hexo": "^3.2.2"
   },
   "config": {
     "commitizen": {
