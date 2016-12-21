@@ -16,15 +16,17 @@ tags: css3
 
 ## 实现一个正方形
 
-```sass
-.square
-  position: relative
-  width: 100%
+```scss
+.square {
+  position: relative;
+  width: 100%;
 
-  &::before
-    content: ''
-    display: block
-    padding-top: 100%
+  &::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}
 ```
 ```html
 <div class="square"></div>
@@ -38,29 +40,33 @@ tags: css3
 
 想要实现更多比例的形状，其实就是修改`::before`中的`pading-top`或者`padding-bottom`的值即可。
 
-```sass
+```scss
 // 16: 9
-.square::before
-  padding-top: (9 / 16 * 100%)
+.square::before {
+  padding-top: (9 / 16 * 100%);
+}
 
 // 4: 3
-.square::before
-  padding-top: (3 / 4 * 100%)
+.square::before {
+  padding-top: (3 / 4 * 100%);
+}
 
 // 1: 2
-.square::before
-  padding-top: 200%
+.square::before {
+  padding-top: 200%;
+}
 ```
 
 当然，上边的实现都只是一个简单的矩形，如果你的矩形里边还要有一些内容的话，需要给元素添加以下几个属性：
 
-```sass
-.content
-  position: absolute
-  top: 0
-  right: 0
-  bottom: 0
-  left: 0
+```scss
+.content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
 ```
 
 ```html
