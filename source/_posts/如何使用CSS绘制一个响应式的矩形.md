@@ -2,7 +2,7 @@
 uuid: c0515f30-c6b4-11e6-b953-a17ab9df4636
 title: 如何使用CSS绘制一个响应式的矩形
 date: 2016-12-20 21:03:50
-tags:
+tags: css3
 ---
 
 ## 背景：
