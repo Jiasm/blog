@@ -7,8 +7,9 @@ tags: js
 
 今天来说下zepto那一套dom操作方法,
 
-prepend,append,prependTo,appendTo,before,after,insertBefore,insertAfter;
-
+```javascript
+['prepend', 'append', 'prependTo', 'appendTo', 'before', 'after', 'insertBefore', 'insertAfter']
+```
 按着从内到外,从主到从,从前到后的顺序来说这八个方法.
 
 这些方法的参数可以是一个dom节点,也可是是一个html片段,或者Zepto对象;
