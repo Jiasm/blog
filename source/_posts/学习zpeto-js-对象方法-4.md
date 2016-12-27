@@ -7,7 +7,9 @@ tags: js
 
 今天说说那一套获取元素集合的一些方法:
 
+```javascript
 ["children", "clone", "closest", "contents", "empty", "eq", "filter", "find", "first", "get", "has", "last", "not", "parent", "parents", "siblings"]
+```
 
 ### children:
 
