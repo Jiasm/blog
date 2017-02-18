@@ -56,8 +56,8 @@ tab切换的在最外层，每一个tab页签对应一个`listview`，同时在`
 3.  内层 `onStartShouldSetResponder` (如果返回true 终止)
 4.  外层 `onStartShouldSetResponder`
 
-由于Swiper组件中的广告图涉及到跳转打开网页之类的操作，所以我们引入了Touch*组件。
-Touch* 组件有两个事件是这里我们需要用到的：onPressIn和onPressOut
+由于Swiper组件中的广告图涉及到跳转打开网页之类的操作，所以我们引入了`Touch*`组件。
+`Touch*` 组件有两个事件是这里我们需要用到的：`onPressIn`和`onPressOut`
 这两个事件会在手指按下和抬起时触发；
 所以我们需要做的就是在这两个事件中触发锁定和解锁外层`scrollview`的可滚动性。
 我们这里使用了`setNativeProps`方法进行锁定`scrollview`。
