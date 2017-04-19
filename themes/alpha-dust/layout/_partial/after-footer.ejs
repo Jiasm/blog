@@ -33,7 +33,7 @@
   (function() {
     var hm = document.createElement("script");
     hm.src = "https://hm.baidu.com/hm.js?0b73c30b8ea35005f8de61a6dcdda901";
-    var s = document.getElementsByTagName("script")[0]; 
+    var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(hm, s);
   })();
   var duoshuoQuery = {short_name:'<%= theme.comments.duoshuo %>'};
@@ -42,8 +42,30 @@
     ds.type = 'text/javascript';ds.async = true;
     ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
     ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
   })();
 
+</script>
+
+<script>
+  // import facebook
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '268123120314784',
+      xfbml: true,
+      version: 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+      return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 </script>
