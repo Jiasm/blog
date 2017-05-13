@@ -70,7 +70,7 @@ theme: Material
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/Jiasm/blog.git
+  repo: https://github.com/Jiasm/jiasm.github.io.git
   branch: master
 
 prism_plugin:
