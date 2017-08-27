@@ -4,7 +4,7 @@ title: '学习zpeto.js(对象方法)[2]'
 date: 2015-08-13 17:11
 tags: js
 ---
-
+ 
 今天来说下zepto那一套dom操作方法,
 
 ```javascript

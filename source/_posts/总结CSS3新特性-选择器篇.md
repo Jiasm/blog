@@ -7,7 +7,7 @@ tags: css
 CSS3新增了
 ![](/images/summary-css-new-feature-selectors/screen-shot-1.png)
 嗯- -21个选择器,脚本通过控制台在[这里](http://www.w3school.com.cn/cssref/css_selectors.asp)运行;
-
+ 
 #### ~:
 
 ```css

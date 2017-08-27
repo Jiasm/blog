@@ -4,7 +4,7 @@ title: React-native踩坑小记
 date: 2017-02-18 15:42:30
 tags:
 ---
-
+ 
 > 最近开始研究ReactNative咯，大概一两周了吧已经，略略说一下遇到的一些坑爹问题  
 > 问题一般都出在`android`上。。。最近看GitHub issues最多的一句就是。  
 > everything is ok on iOS...  

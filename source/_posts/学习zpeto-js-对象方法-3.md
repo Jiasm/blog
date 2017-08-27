@@ -4,7 +4,7 @@ title: '学习zpeto.js(对象方法)[3]'
 date: 2015-08-18 16:54
 tags: js
 ---
-
+ 
 继续说zepto里attributes的相关操作.
 
 attr,removeAttr,prop这三个方法.

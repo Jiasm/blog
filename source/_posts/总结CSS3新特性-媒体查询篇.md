@@ -4,7 +4,7 @@ title: 总结CSS3新特性(媒体查询篇)
 date: 2015-07-16 16:58
 tags: css
 ---
-
+ 
 CSS3的媒体查询是对CSS2[媒体类型](http://www.w3.org/TR/REC-CSS2/media.html)的扩展,完善;
 
 CSS2的媒体类型仅仅定义了一些设备的关键字,CSS3的媒体查询进一步扩展了如width,height,color等具有取值范围的属性;

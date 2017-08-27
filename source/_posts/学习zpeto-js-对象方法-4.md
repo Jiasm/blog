@@ -4,7 +4,7 @@ title: '学习zpeto.js(对象方法)[4]'
 date: 2015-08-19 17:15
 tags: js
 ---
-
+ 
 今天说说那一套获取元素集合的一些方法:
 
 ```javascript

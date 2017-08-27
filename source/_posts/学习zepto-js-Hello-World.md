@@ -4,7 +4,7 @@ title: 学习zepto.js(Hello World)
 date: 2015-08-07 21:39
 tags: js
 ---
-
+ 
 Zepto是一个轻量级的针对现代高级浏览器的JavaScript库， 它与jquery有着类似的api。 如果你会用jquery，那么你也会用zepto。
 
 昨天听说了zepto.js,正好最近也比较闲,所以就学习一下这个著名DOM操作库,由于本人刚接触这个,但又不想单纯的说如何使用,所以本人会按照API顺序来说明方法如何使用并试着将对于源码的理解写上来;

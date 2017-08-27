@@ -4,7 +4,7 @@ title: 总结CSS3新特性(Transiton篇)
 date: 2015-07-21 14:06
 tags: css
 ---
-
+ 
 > **CSS 过渡（transition）**, 是 [CSS3](https://developer.mozilla.org/en-US/docs/CSS/CSS3) 规范的一部分, 用来控制 CSS 属性的变化速率。 可以让属性的变化过程持续一段时间，而不是立即生效。比如，将元素的颜色从白色改为黑色，通常这个改变是立即生效的，使用 transition 后，将按一个曲线速率变化。这个过程可以自定义。
 <!-- more -->
 

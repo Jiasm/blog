@@ -40,9 +40,6 @@ relative_link: false
 future: true
 highlight:
   enable: false
-  line_number: true
-  auto_detect: false
-  tab_replace:
 
 # Category & Tag
 default_category: uncategorized
