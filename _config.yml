@@ -71,6 +71,6 @@ deploy:
   branch: master
 
 prism_plugin:
-  mode: 'preprocess'    # realtime/preprocess
+  mode: 'realtime'    # realtime/preprocess
   theme: 'okaidia'
   line_number: false    # default false
