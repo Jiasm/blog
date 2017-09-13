@@ -1,15 +1,15 @@
 ---
 uuid: 082942a0-9702-11e7-8b41-a53d09958c8f
-title: 'EJS源码解析[0]'
+title: 'EJS源码解析[0]-如何使用EJS'
 date: 2017-09-11 23:01:04
 tags:
   - EJS
   - 源码解析
 ---
 
-> 最近做的一个新项目，整个项目是开发自己来主导的，所以想着换一个新的模版引擎尝试一下。（之前我们一直在使用[`handlebars`](http://handlebarsjs.com/)）
+> 最近做的一个新项目，所以想着换一个新的模版引擎尝试一下。（之前我们一直在使用[`handlebars`](http://handlebarsjs.com/)）  
 <!-- more -->
-> 本次源码分析所使用的是TJ大神开发的[1.x版本](https://github.com/tj/ejs)
+> 本次源码分析所使用的是TJ大神开发的[1.x版本](https://github.com/tj/ejs)  
 > 当然现在该项目已经停止维护了，目前正在维护的是[2.x版本](https://github.com/mde/ejs)
 
 
@@ -56,7 +56,7 @@ console.log(renderStr) // => <h1>Hello, Niko Bellic</h1>
 <% } %>
 ```
 
-如上文在`EJS`处理后的代码应该是类似这个样子的。*（源代码比这个看起来要难看一些。。。）*
+如上文在`EJS`处理后的代码应该是类似这个样子的。*（源代码比这个内容更丰富一些。。。）*
 
 ```javascript
 (function () {
@@ -79,7 +79,7 @@ console.log(renderStr) // => <h1>Hello, Niko Bellic</h1>
 ```html
 <span><%= 'Hello' %></span>
 
-==>
+<!-- convert -->
 
 <span>Hello</span>
 ```
@@ -91,7 +91,7 @@ console.log(renderStr) // => <h1>Hello, Niko Bellic</h1>
 ```html
 <span><%= '<hello />' %></span>
 
-==>
+<!-- convert -->
 
 <span>&lt;hello /&gt;</span>
 ```
@@ -99,3 +99,36 @@ console.log(renderStr) // => <h1>Hello, Niko Bellic</h1>
 ### `<%# comment %>`
 
 昂。。这个标签里边的内容是作为注释存在的。。估计很少有人会用-.- 在模版生成后，会移除里边的内容
+
+### 在标签后边添加`-`
+
+这个有很多种写法都可以支持，比如：`<% -%>`，`<%= -%>`，`<%- -%>`
+**这样会移除该标签后边的第一个换行符（如果有的话）**
+
+```html
+<h1>
+  <%- 'Title' %>
+</h1>
+
+<!-- convert -->
+
+<h1>
+  Title
+</h1>
+
+<!-- line -->
+
+<h1>
+  <%- 'Title' -%>
+</h1>
+
+<!-- convert -->
+
+<h1>
+  Title</h1>
+```
+
+## 一些完整的示例
+
+仓库中存放了一些各种使用姿势的示例：  
+https://github.com/Jiasm/ejs-examples
