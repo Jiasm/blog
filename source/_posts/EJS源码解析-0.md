@@ -128,6 +128,43 @@ console.log(renderStr) // => <h1>Hello, Niko Bellic</h1>
   Title</h1>
 ```
 
+## 模版提供的各种`Config`
+
+### cache
+
+默认为`false`，如果设置为`true`则认为是开启了缓存模式，对相同`filename`参数的模版会使用之前已经渲染好的。
+**前置条件：必须同时设置`filename`参数**
+
+### filename
+
+`cache`模式下作为一个存储的`key`。
+
+### scope
+
+可以通过该参数设置模版执行时的函数上下文。
+即模版中`this`的指向。
+
+### debug
+
+默认为`false`，如果设置为`true`，则会在模版执行`compile`时输出拼接好的`JavaScript`代码。方便调试。
+
+### compileDebug
+
+默认为开启，设置为`false`则为关闭，在开启状态下，模版会在`compile`执行时额外拼接代码的行信息，这样在报错时我们可以很方便定位是哪一行出的问题。
+
+### client
+
+默认为`false`，如果设置为`true`则会在`compile`函数中返回一个相对独立的`Function`。
+主要是体现在一些内置函数的引用上。
+
+### open
+
+设置开始的界定符。默认为`<%`
+
+### close
+
+设置结束的界定符。默认为`%>`
+
 ## 一些完整的示例
 
 仓库中存放了一些各种使用姿势的示例：  
