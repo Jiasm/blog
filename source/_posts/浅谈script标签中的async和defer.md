@@ -50,7 +50,7 @@ tags:
 ![image](https://user-images.githubusercontent.com/9568094/31618663-29873404-b258-11e7-8333-b113aa95c0ae.png)
 执行结果不出所料，如果给`async`一定的时间，是有可能在`DOMContentLoaded`事件之前就执行的。
 ![image](https://user-images.githubusercontent.com/9568094/31619033-314a03dc-b259-11e7-862f-17a0317920bb.png)
-P.S. 从上图中左上角的火焰图中，我们也能看到，出现了多段的蓝色文档渲染。以及下边`Console`的顺序。
+P.S. 从上图中左上角的火焰图中，我们也能看到，出现了多段的~~蓝色~~（更新：晚上写的时候懵了，紫色的才是渲染，蓝色的是解析）文档渲染。以及下边`Console`的顺序。
 说明的确，`async`的执行是加载完成就会去执行，而不像`defer`那样要等待所有的脚本加载完后按照顺序执行。
 
 ## 画几张图简要说明
