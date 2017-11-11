@@ -30,11 +30,10 @@ tags:
 赘述那些特殊字符的作用并没有什么意义，浪费时间。
 推荐MDN的文档：[基础的正则表达式特殊字符](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#使用特殊字符)
 
-关于特殊字符，个人认为以下几个比较重要：
+**关于正则表达式，个人认为以下几个比较重要：**
 
-#### 捕获组
+### 贪婪模式与非贪婪模式
 
-`/123(\d+)0/` 括号中的被称之为捕获组。
 **P.S.** 关于`贪婪模式`和`非贪婪模式`，发现有些地方会拿这样的例子：
 ```javascript
 /.+/ // 贪婪模式
@@ -64,10 +63,37 @@ html.match(/<span>(.+?)<\/span>/)
 1. 贪婪模式，能拿<span style="font-size: 2em;">多少</span>拿多少
 2. 非贪婪模式，能拿多<span style="font-size: 2em;">少</span>拿多少
 
+#### 捕获组
+
+`/123(\d+)0/` 括号中的被称之为捕获组。
+
+捕获组有很多的作用，比如处理一些日期格式的转换。
+```javascript
+let date = '2017-11-21'
+
+date.replace(/^(\d{4})-(\d{2})-(\d{2})$/, '$2/$3/$1')
+```
+
+又或者可以直接写在正则表达式中作为前边重复项的匹配。
+```javascript
+let template = 'hello helloworl'
+template.match(/(\w+) \1/) // => hello hello
+
+// 我们可以用它来匹配出month和day数字相同的数据
+let dateList = `
+2017-10-10
+2017-11-12
+2017-12-12
+`
+
+dateList.match(/^\d{4}-(\d{2})-(\1)/gm) // => ["2017-10-10", "2017-12-12"]
+```
+
 #### 非捕获组
 
 我们读取了一个文本文件，里边是一个名单列表
-我们想要取出所有`Stark`的名字，我们就可以写这样的正则：
+我们想要取出所有`Stark`的名字（但是并不想要姓氏，因为都叫Stark），我们就可以写这样的正则：
+
 ```javascript
 let nameList = `
 Brandon Stark
@@ -79,12 +105,191 @@ nameList.match(/^\w+(?=\s?Stark)/gm) // => ["Brandon", "Sansa"]
 ```
 上边的`(?=)`就是非捕获组，意思就是规则会被命中，但是在结果中不会包含它。
 
+
 ### 如何使用正则表达式
 
+#### RegExp对象
+
+创建`RegExp`对象有两种方式：
+1. 直接字面量的声明：`/\d/g`
+2. 通过构造函数进行创建：`new RegExp('\d', 'g')`
+
+`RegExp`对象提供了两个方法：
+
+##### exec
+
+方法执行传入一个字符串，然后对该字符串进行匹配，如果匹配失败则直接返回`null`
+如果匹配成功则会返回一个数组：
+```javascript
+let reg = /([a-z])\d+/
+let str = 'a233'
+let result = reg.exec(str) // => ['a233', 'a', ...]
+```
+**P.S.** 如果正则表达式有`g`标识，在每次执行完`exec`后，该正则对象的`lastIndex`值就会被改变，该值表示下次匹配的开始下标
+```javascript
+let reg = /([a-z])\d+/g
+let str = 'a233'
+reg.exec(str) // => ['a233', 'a', ...]
+// reg.lastIndex = 4
+reg.exec(str) // => null
+```
+
+##### test
+
+方法用来检查正则是否能成功匹配该字符串
+
+```javascript
+let reg = /^Hello/
+
+reg.test('Hello World') // => true
+reg.test('Say Hello') // => false
+```
+`test`方法一般来说多用在检索或者过滤的地方。
+比如我们做一些筛选`filter`的操作，用`test`就是一个很好的选择。
+```javascript
+// 筛选出所有名字为 Niko的数据
+let data = [{ name: 'Niko Bellic' }, { name: 'Roman Bellic'}]
+
+data.filter(({name}) => /^Niko/.test(name)) // => [{ name: 'Niko Bellic' }]
+```
+
+#### String对象
+
+> 除了`RegExp`对象实现的一些方法外，`String`同样提供了一套方法供大家来使用。
+
+##### search
+
+传入一个正则表达式，并使用该表达式进行匹配；
+如果匹配失败，则会返回`-1`
+如果匹配成功，则会返回匹配开始的下标。
+可以理解为是一个正则版的`indexOf`
+
+```javascript
+'Hi Niko'.search(/Niko/) // => 3
+'Hi Niko'.search(/Roman/) // => -1
+
+// 如果传入的参数为一个字符串，则会将其转换为`RegExp`对象
+'Hello'.search('llo') // => 2
+```
+
+##### split
+
+`split`方法应该是比较常用的，用得最多的估计就是`[].split(',')`了。。
+
+然而这个参数也是可以塞进去一个正则表达式的。
+```javascript
+'1,2|3'.split(/,|\|/) // => [1, 2, 3]
+
+// 比如我们要将一个日期时间字符串进行分割
+let date = '2017-11-21 23:40:56'
+
+date.split(/-|\s|:/)
+
+// 又或者我们有这么一个字符串，要将它正确的分割
+let arr = '1,2,3,4,[5,6,7]'
+
+arr.split(',') // => ["1", "2", "3", "4", "[5", "6", "7]"] 这个结果肯定是不对的。
+
+// 所以我们可以这么写
+arr.split(/,(?![,\d]+])/) // => ["1", "2", "3", "4", "[5,6,7]"]
+```
+该条规则会匹配`,`,但是`,`后边还有一个限定条件，那就是绝对不能出现数字+`,`的组合并且以一个`]`结尾。
+这样就会使`[4,5,6]`里边的`,`不被匹配到。
+
+##### match
+
+`match`方法用来检索字符串，并返回匹配的结果。
+
+如果正则没有添加`g`标识的话，返回值与`exec`类似。
+但是如果添加了`g`标识，则会返回一个数组，数组的`item`为满足匹配条件的子串。
+这将会无视掉所有的捕获组。
+拿上边的那个解析`HTML`来说
+```javascript
+let html = '<p><span>text1</span><span>text2</span></p>'
+
+html.match(/<span>(.+?)<\/span>/g) // => ["<span>text1</span>", "<span>text2</span>"]
+```
+
+##### replace
+
+`replace`应该是与正则有关的应用最多的一个函数。
+最简单的模版引擎可以基于`replace`来做。
+日期格式转换也可以通过`replace`来做。
+甚至`match`的功能也可以通过`replace`来实现（虽说代码会看起来很丑）
+
+`replace`接收两个参数
+`replace(str|regexp, newStr|callback)`
+
+第一个参数可以是一个字符串 也可以是一个正则表达式，转换规则同上几个方法。
+第二个参数却是可以传入一个字符串，也可以传入一个回调函数。
+
+当传入字符串时，会将正则所匹配到的字串替换为该字符串。
+当传入回调函数时，则会在匹配到子串时调用该回调，回调函数的返回值会替换被匹配到的子串。
+```javascript
+'Hi: Jhon'.replace(/Hi:\s(\w+)/g, 'Hi: $1 Snow') // => Hi: Jhon Snow
+
+'price: 1'.replace(/price:\s(\d)/g, (/* 匹配的完整串 */str, /* 捕获组 */ $1) => `price: ${$1 *= 10}`) // => price: 10
+```
+
 ### 一些全新的特性
+
+> 前段时间看了下`ECMAScript 2018`的一些草案，发现有些`Stage 3`的草案，其中有提到`RegExp`相关的，并在`chrome`上试验了一下，发现已经可以使用了。
+
+#### Lookbehind assertions(应该可以叫做`回溯引用`吧)
+
+> 同样也是一个非捕获组的语法定义
+
+语法定义：
+```javascript
+let reg = /(?<=Pre)\w/
+
+reg.test('Prefixer') // => true
+reg.test('Prfixer') // => false
+```
+
+设置匹配串前边必须满足的一些条件，与`(?=)`正好相反，一前一后。
+这个结合着`(?=)`使用简直是神器，还是说解析`HTML`的那个问题。
+现在有了`(?<=)`以后，我们甚至可以直接通过一个`match`函数拿到`HTML`元素中的文本值了。
+```javascript
+let html = '<p><span>text1</span><span>text2</span></p>'
+
+html.match(/(?<=<span>)(.+?)(?=<\/span>)/g) // => ["text1", "text2"]
+```
+
+#### Named capture groups(命名捕获组)
+
+我们知道，`()`标识这一个捕获组，然后用的时候就是通过`\1`或者`$1`来使用。
+这次草案中提到的命名捕获组，就是可以让你对`()`进行命名，在使用时候可以用接近变量的用法来调用。
+
+语法定义：
+```javascript
+let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/
+
+'2017-11-21'.match(reg)
+```
+在`match`的返回值中，我们会找到一个`groups`的`key`。
+里边存储着所有的命名捕获组。
+![Image](https://os4ty6tab.qnssl.com/cblued/static/regexp-pic-2.1bulvfd0dc7b8q.png)
+![Image](https://os4ty6tab.qnssl.com/cblued/static/regexp-pic-3.1bulvmgp4tjstg.png)
+
+##### 在replace中的用法
+
+```javascript
+let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/
+'2017-11-21'.replace(reg, '$<month>/$<day>/$<year>') // => 21/11/2017
+```
+
+##### 表达式中的反向引用
+
+```javascript
+let reg = /\d{4}-(?<month>\d{2})-\k<month>/
+reg.test('2017-11-11') // => true
+reg.test('2017-11-21') // => false
+```
 
 ## 参考资料
 
 - [MDN-正则表达式](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp)
 - [RegExp named capture groups](http://2ality.com/2017/05/regexp-named-capture-groups.html)
+- [RegExp lookbehind assertions](http://2ality.com/2017/05/regexp-lookbehind-assertions.html)
 - [在线正则匹配规则](https://jex.im/regulex)
