@@ -88,15 +88,15 @@ card_elevation: 2
 # SNS Menu
 sns:
     email: "jiashunming@outlook.com"
-    facebook:
-    twitter:
+    facebook: "https://www.facebook.com/jiashunming"
+    twitter: "https://twitter.com/jiashm"
     googleplus:
-    weibo:
+    weibo: "https://weibo.com/jarvis1996"
     instagram:
     tumblr:
     github: "https://github.com/jiasm"
     linkedin:
-    zhihu:
+    zhihu: "https://www.zhihu.com/people/jia-shun-ming-57/activities"
     bilibili:
     telegram:
 
