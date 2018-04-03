@@ -104,7 +104,7 @@ pm.sendRequest(responseJSON[0].url, function (err, response) {
 ### 如何处理大量重复的断言逻辑
 
 针对单个API，去编写对应的断言脚本，这个是没有什么问题的。
-但是如果是针对一个项目的所有`API`去编写，类似于判断`statusCode`这样的断言就会显得很溶于，所以`PostMan`也考虑到了这点。
+但是如果是针对一个项目的所有`API`去编写，类似于判断`statusCode`这样的断言就会显得很冗余，所以`PostMan`也考虑到了这点。
 在我们创建的`Collection`以及下层的文件夹中，我们可以直接编写针对这个目录下的所有请求的断言脚本。
 ![](/images/postman-usage/postman-pic-8.png)
 ![](/images/postman-usage/postman-pic-7.png)
