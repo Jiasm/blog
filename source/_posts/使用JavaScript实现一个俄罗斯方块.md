@@ -221,3 +221,7 @@ if (
 能够清晰的管理游戏对应的二维数组，这个游戏开发起来就会很顺畅。
 
 *界面还有待优化。*
+
+### Tips
+
+我的博客即将搬运同步至腾讯云+社区，邀请大家一同入驻：[https://cloud.tencent.com/developer/support-plan?invite_code=1vas1z072yivn](https://cloud.tencent.com/developer/support-plan?invite_code=1vas1z072yivn)
