@@ -16,6 +16,8 @@ tags:
 
 这些方法都是比较常见的，但是当你的回调函数是一个`Promise`时，一切都变了。
 
+<!-- more -->
+
 ## 前言
 
 `async/await`为`Promise`的语法糖
