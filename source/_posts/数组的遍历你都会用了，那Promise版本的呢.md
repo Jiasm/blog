@@ -275,7 +275,7 @@ Array.prototype.everySync = async function (callback, thisArg) {
   return true
 }
 await [1, 2, 3].everySync(async item => item === 2)
-// > true
+// > false
 ```
 当匹配到任意一个`false`时，直接返回`false`，终止遍历。
 
