@@ -74,7 +74,8 @@ await Promise.all([1, 2, 3].map(async item => item ** 2))
 `reduce`的函数签名想必大家也很熟悉了，接收两个参数：
 1. 对每一项元素执行的回调函数，返回值将被累加到下次函数调用中，回调函数的签名：
   1. `accumulator`累加的值
-  2. `currentValue`当前正在的元素
+  2. `currentValue`当前正在处理的元素
+  2. `currentIndex`当前正在处理的元素下标
   3. `array`调用`reduce`的数组
 2. 可选的初始化的值，将作为`accumulator`的初始值
 
