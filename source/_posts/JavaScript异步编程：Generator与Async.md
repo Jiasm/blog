@@ -1,7 +1,7 @@
 ---
 uuid: 2a74d0b0-4a83-11e8-9c98-c52ae31e6eed
-title: JavaScript异步编程：Generator/yield与async/await
-date: 2018-04-28 09:26:24
+title: JavaScript异步编程：Generator与Async
+date: 2018-05-06 18:06:24
 tags:
   - javascript
   - node.js
@@ -14,7 +14,7 @@ tags:
 
 然后，在`ES7`左右，我们又得到了`async`/`await`这样的语法，可以让我们以接近编写同步代码的方式来编写异步代码（无需使用`.then()`或者回调函数）：
 
-## Generator/yield
+## Generator
 
 `Generator`是一个函数，可以在函数内部通过`yield`返回一个值（**此时，`Generator`函数的执行会暂定，直到下次触发`.next()`**）  
 创建一个`Generator`函数的方法是在`function`关键字后添加`*`标识。
@@ -108,6 +108,11 @@ function * gen2 () {
 for (let value of gen1()) {
   console.log(value)
 }
+// > 1
+// > 2
+// > 3
+// > 4
+// > 5
 ```
 
 ### 模拟实现Promise执行器
@@ -133,17 +138,17 @@ function run (gen) {
   }
 }
 
+function getRandom () {
+  return new Promise(resolve => {
+    setTimeout(_ => resolve(Math.random() * 10 | 0), 1000)
+  })
+}
+
 function * main () {
   let num1 = yield getRandom()
   let num2 = yield getRandom()
 
   return num1 + num2
-}
-
-function getRandom () {
-  return new Promise(resolve => {
-    setTimeout(_ => resolve(Math.random() * 10 | 0), 1000)
-  })
 }
 
 run(main).then(data => {
@@ -156,23 +161,23 @@ run(main).then(data => {
 我们只看`main()`函数的代码，使用`Generator`确实能够让我们让近似同步的方式来编写异步代码  
 但是，这样写就意味着我们必须有一个外部函数负责帮我们执行`main()`函数这个`Generator`，并处理其中生成的`Promise`，然后在`then`回调中将结果返回到`Generator`函数，以便可以执行下边的代码。
 
-## Async/await
+## Async
 
 `async`/`await`是`ES7`时推出的解决异步编程的新方法，用法就是，在`function`关键字前添加`async`，在调用时使用`await`关键字来调用  
 我们使用`async`/`await`来重写上边的`Generator`例子：
 
 ```javascript
+function getRandom () {
+  return new Promise(resolve => {
+    setTimeout(_ => resolve(Math.random() * 10 | 0), 1000)
+  })
+}
+
 async function main () {
   let num1 = await getRandom()
   let num2 = await getRandom()
 
   return num1 + num2
-}
-
-function getRandom () {
-  return new Promise(resolve => {
-    setTimeout(_ => resolve(Math.random() * 10 | 0), 1000)
-  })
 }
 
 console.log(`got data: ${await main()}`)
@@ -181,7 +186,7 @@ console.log(`got data: ${await main()}`)
 这样看上去，好像我们从`Generator`/`yield`换到`async`/`await`只需要把`*`都改为`async`，`yield`都改为`await`就可以了。
 所以很多人都直接拿`Generator`/`yield`来解释`async`/`await`的行为，但这会带来如下几个问题：
 1. `Generator`有其他的用途，而不仅仅是用来帮助你处理`Promise`
-2. 让那些不熟悉这两者的人理解起来更困难
+2. 这样的解释让那些不熟悉这两者的人理解起来更困难（因为你还要去解释那些类似`co`的库）
 
 > `async`/`await`是处理`Promise`的一个极其方便的方法，但如果使用不当的话，也会造成一些令人头疼的问题
 
@@ -202,9 +207,11 @@ console.log(returnNumber() instanceof Promise) // true
 console.log(throwError() instanceof Promise)   // true
 ```
 
+也就是说，无论函数是做什么用的，你都要按照`Promise`的方式来处理它。  
+
 ### Await是按照顺序执行的，并不能并行执行
 
-`JavaScript`是单线程的，这就意味着`await`一只能一次处理一个，如果你有多个`Promise`需要处理，则就意味着，你要等到前一个`Promise`处理完成才能进行下一个的处理，这就意味着，如果我们同时发送大量的请求，这样处理就会慢很多：
+`JavaScript`是单线程的，这就意味着`await`一只能一次处理一个，如果你有多个`Promise`需要处理，则就意味着，你要等到前一个`Promise`处理完成才能进行下一个的处理，这就意味着，如果我们同时发送大量的请求，这样处理就会非常慢，`one by one`：
 
 ```javascript
 const bannerImages = []
@@ -265,3 +272,8 @@ console.timeEnd('runner')
 而`async`则是为了更简洁的使用`Promise`而提出的语法，相比`Generator + co`这种的实现方式，更为专注，生来就是为了处理异步编程。
 
 现在已经是`2018`年了，`async`也是用了好久，就让`Generator`去做他该做的事情吧。。
+
+## 参考资料
+
+- [modern-javascript-and-asynchronous-programming-generators-yield-vs-async-await](https://medium.com/front-end-hacking/modern-javascript-and-asynchronous-programming-generators-yield-vs-async-await-550275cbe433)
+- [async-function-tips](http://2ality.com/2016/10/async-function-tips.html)
