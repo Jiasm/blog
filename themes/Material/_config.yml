@@ -8,6 +8,11 @@ head:
     high_res_favicon: "/img/favicon.png"
     apple_touch_icon: "/img/favicon.png"
     keywords:
+        - javascript
+        - css
+        - html
+        - ES6
+        - node.js
 
 # Jump Links Settings
 url:
@@ -111,37 +116,36 @@ sns_share:
     telegram: false
 
 # Sidebar Customize
-sidebar:
-    dropdown:
-        Email Me:
-            link: "#"
-            icon: email
-    homepage:
-        use: true
-        icon: home
-        divider: false
-    archives:
-        use: true
-        icon: inbox
-        divider: false
-    categories:
-        use: false
-        icon: chrome_reader_mode
-        divider: false
-    pages:
-        #About:
-            #link: "/about"
-            #icon: person
-            #divider: false
-    article_num:
-        use: false
-        divider: false
-    footer:
-        divider: true
-        theme: true
-        support: false
-        feedback: false
-        material: false
+# sidebar:
+dropdown:
+    Email Me:
+        link: "#"
+        icon: email
+homepage:
+    use: true
+    icon: home
+    divider: false
+archives:
+    use: true
+    icon: inbox
+    divider: false
+categories:
+    use: false
+    icon: chrome_reader_mode
+    divider: false
+pages:
+    About: "/about"
+    Contact: "/contact"
+    Links: "/links"
+article_num:
+    use: false
+    divider: false
+footer:
+    divider: true
+    theme: true
+    support: false
+    feedback: false
+    material: false
 
 # Qrcode for redirect at other device
 qrcode: true
