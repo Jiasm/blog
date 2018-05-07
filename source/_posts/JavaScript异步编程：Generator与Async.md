@@ -10,9 +10,11 @@ tags:
 从`Promise`开始，JavaScript就在引入新功能，来帮助更简单的方法来处理异步编程，帮助我们远离回调地狱。  
 `Promise`是下边要讲的`Generator`/`yield`与`async`/`await`的基础，希望你已经提前了解了它。  
 
-在大概`ES6`的时代，推出了`Generator`/`yield`两个关键字，使用`Generator`可以很方便的帮助我们建立一个处理`Promise`的解释器：
+在大概`ES6`的时代，推出了`Generator`/`yield`两个关键字，使用`Generator`可以很方便的帮助我们建立一个处理`Promise`的解释器。
 
-然后，在`ES7`左右，我们又得到了`async`/`await`这样的语法，可以让我们以接近编写同步代码的方式来编写异步代码（无需使用`.then()`或者回调函数）：
+然后，在`ES7`左右，我们又得到了`async`/`await`这样的语法，可以让我们以接近编写同步代码的方式来编写异步代码（无需使用`.then()`或者回调函数）。
+
+两者都能够帮助我们很方便的进行异步编程，但同样，这两者之间也是有不少区别的。
 
 ## Generator
 
@@ -163,7 +165,6 @@ run(main).then(data => {
 
 ## Async
 
-`async`/`await`是`ES7`时推出的解决异步编程的新方法，用法就是，在`function`关键字前添加`async`，在调用时使用`await`关键字来调用  
 我们使用`async`/`await`来重写上边的`Generator`例子：
 
 ```javascript
@@ -277,3 +278,5 @@ console.timeEnd('runner')
 
 - [modern-javascript-and-asynchronous-programming-generators-yield-vs-async-await](https://medium.com/front-end-hacking/modern-javascript-and-asynchronous-programming-generators-yield-vs-async-await-550275cbe433)
 - [async-function-tips](http://2ality.com/2016/10/async-function-tips.html)
+
+示例代码：[code-resource](https://github.com/Jiasm/code-demo-resource/tree/master/generator-async)

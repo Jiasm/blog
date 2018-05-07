@@ -136,7 +136,7 @@ categories:
 pages:
     About: "/about"
     Contact: "/contact"
-    Links: "/links"
+    Friends: "/links"
 article_num:
     use: false
     divider: false
