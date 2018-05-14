@@ -147,14 +147,14 @@ async function writeFile () {
   let fd = await fs.open('test.log')
   fs.write(fd, 'hello')
   fs.write(fd, 'world')
-  await fs.close(fd)
+  return fs.close(fd)
 }
 ```
+*就像上边说的，Promise内部的Promise会被消化，所以我们在最后的`close`也没有使用`await`*
 我们通过`await`打开一个文件，然后进行两次文件的写入。  
 但是注意了，在两次文件的写入操作前边，我们并没有添加`await`关键字。  
-因为这是多余的，我们只需要通知API，我要往这个文件里边写入一行文本，顺序自然会由`fs`来控制  
-然后我们在最后使用`await`来关闭这个文件。  
-因为如果我们上边在执行写入的过程还没有完成时，`close`的回调是不会触发的，  
+因为这是多余的，我们只需要通知API，我要往这个文件里边写入一行文本，顺序自然会由`fs`来控制 。  
+然后最后再进行`close`，因为如果我们上边在执行写入的过程还没有完成时，`close`的回调是不会触发的，  
 也就是说，回调的触发就意味着上边两步的`write`已经执行完成了。
 
 ## 合并多个不相干的async函数调用
