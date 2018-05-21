@@ -10,3 +10,15 @@ tags:
 > 拿它可以做很多有意思的事情，在我们需要对一些对象的行为进行控制时将变得非常有效。  
 
 <!-- more -->
+
+首先是`Proxy`的语法：
+```javascript
+let proxy = new Proxy(target, handlers)
+
+let target = {}
+let proxy = new Proxy(target, {}) // do nothing
+
+proxy.a = 123
+
+console.log(target.a) // 123
+```
