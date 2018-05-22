@@ -11,7 +11,11 @@ tags:
 
 <!-- more -->
 
-首先是`Proxy`的语法：
+首先是`Proxy`的语法  
+创建一个`Proxy`的实例需要传入两个`Object`  
+1. `target`  要被代理的对象
+2. `handlers`对该代理对象的各种操作行为处理
+
 ```javascript
 let proxy = new Proxy(target, handlers)
 
@@ -22,3 +26,18 @@ proxy.a = 123
 
 console.log(target.a) // 123
 ```
+
+## Proxy都能做什么
+
+这里列出了`handlers`所有支持的行为 *(被称为traps)*：  
+
+traps|description
+:-:|:-:
+get|获取某个`key`值
+set|设置某个`key`值
+deleteProperty|删除一个`property`
+enumerate|进行枚举
+ownKeys|获取目标对象所有的`key`
+has|使用`in`操作符判断某个`key`是否存在
+defineProperty|定义一个新的`property`
+getOwnPropertyDescriptor|获取所有`property`的描述
