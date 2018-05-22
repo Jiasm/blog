@@ -29,15 +29,20 @@ console.log(target.a) // 123
 
 ## Proxy都能做什么
 
-这里列出了`handlers`所有支持的行为 *(被称为traps)*：  
+这里列出了`handlers`所有可以拦截的行为 *(被称为traps)*：  
 
 traps|description
 :-:|:-:
 get|获取某个`key`值
 set|设置某个`key`值
 deleteProperty|删除一个`property`
-enumerate|进行枚举
-ownKeys|获取目标对象所有的`key`
+apply|函数调用，仅在代理对象为`function`时有效
+construct|函数通过实例化调用，仅在代理对象为`function`时有效
 has|使用`in`操作符判断某个`key`是否存在
+ownKeys|获取目标对象所有的`key`
 defineProperty|定义一个新的`property`
-getOwnPropertyDescriptor|获取所有`property`的描述
+isExtensible|判断对象是否可扩展，`Object.isExtensible`的代理
+getPrototypeOf|获取原型对象
+setPrototypeOf|设置原型对象
+preventExtensions|在设置对象为不可扩展
+getOwnPropertyDescriptor|获取一个自有属性 *（不会去原型链查找）* 的属性描述
