@@ -13,11 +13,11 @@ tags:
 ## Proxy是什么
 
 首先，我们要清楚，`Proxy`是什么意思，这个单词翻译过来，就是 **代理**。  
-可以理解为，有一个很火的明星，开通了一个微博账号，这个账号非常活跃，但可能并不是真的由本人在维护的。  
+可以理解为，有一个很火的明星，开通了一个微博账号，这个账号非常活跃，回复粉丝、到处点赞之类的，但可能并不是真的由本人在维护的。  
 而是在背后有一个其他人 or 团队来运营，我们就可以称他们为代理人，因为他们发表的微博就代表了明星本人的意思。  
 *P.S. 强行举例子，因为本人不追星，只是猜测可能会有这样的运营团队*
 
-这个代入到`JavaScript`当中来，就可以理解为对`对象`或者`函数`的操作。
+这个代入到`JavaScript`当中来，就可以理解为对`对象`或者`函数`的代理操作。
 
 ## JavaScript中的Proxy
 
@@ -91,25 +91,11 @@ console.log(target.name, proxy.name) // Niko Bellic, name: Niko Bellic
 我们通过创建`get`、`set`两个`trap`来统一管理所有的操作，可以看到，在修改`proxy`的同时，`target`的内容也被修改，而且我们对`proxy`的行为进行了一些特殊的处理。  
 而且我们无需额外的用一个`key`来存储真实的值，因为我们在`trap`内部操作的是`target`对象，而不是`proxy`对象。
 
-这里列出了`handlers`所有可以拦截的行为 *(被称为traps)*：  
+## 拿Proxy来做些什么
 
-traps|description
-:-:|:-:
-get|获取某个`key`值
-set|设置某个`key`值
-deleteProperty|删除一个`property`
-apply|函数调用，仅在代理对象为`function`时有效
-construct|函数通过实例化调用，仅在代理对象为`function`时有效
-has|使用`in`操作符判断某个`key`是否存在
-ownKeys|获取目标对象所有的`key`
-defineProperty|定义一个新的`property`
-isExtensible|判断对象是否可扩展，`Object.isExtensible`的代理
-getPrototypeOf|获取原型对象
-setPrototypeOf|设置原型对象
-preventExtensions|在设置对象为不可扩展
-getOwnPropertyDescriptor|获取一个自有属性 *（不会去原型链查找）* 的属性描述
+因为在使用了`Proxy`后，对象的行为基本上都是可控的，所以我们能拿来做一些之前实现起来特别复杂的事情。
 
-## 使用Proxy来解决调用时undefined的问题
+### 使用Proxy来解决调用时undefined的问题
 
 在一些层级比较深的对象属性获取中，如何处理`undefined`一直是一个痛苦的过程，如果我们用`Proxy`可以很好的兼容这种情况。
 ```javascript
@@ -135,12 +121,78 @@ getOwnPropertyDescriptor|获取一个自有属性 *（不会去原型链查找�
 这样就能够保证我们的取值操作一定不会抛出`can not get xxx from undefined`  
 但是这会有一个小缺点，就是如果你确实要判断这个`key`是否存在只能够通过`in`操作符来判断，而不能够直接通过`get`来判断。  
 
+### 兼容一个类对象的调用方式
 
+如果我们提供了一个`Class`对象给其他人，或者说一个`ES5`版本的构造函数。  
+如果没有使用`new`关键字来调用的话，`Class`对象会直接抛出异常，而`ES5`中的构造函数`this`指向则会变为调用函数时的作用域。  
+我们可以使用`apply`这个`trap`来兼容这种情况：
+```javascript
+class Test {
+  constructor (a, b) {
+    console.log('constructor', a, b)
+  }
+}
+
+// Test(1, 2) // throw an error
+let proxyClass = new Proxy(Test, {
+  apply (target, thisArg, argumentsList) {
+    // 如果想要禁止使用非new的方式来调用函数，直接抛出异常即可
+    // throw new Error(`Function ${target.name} cannot be invoked without 'new'`)
+    return new (target.bind(thisArg, ...argumentsList))()
+  }
+})
+
+proxyClass(1, 2) // constructor 1 2
+```
+
+我们使用了另一个`trap`来代理一些行为，`apply`在函数调用时会触发，因为我们明确的知道，代理的是一个`Class`或构造函数，所以我们直接在`apply`中使用`new`关键字来调用被代理的函数。
+
+以及如果我们想要对函数进行限制，禁止使用`new`关键字来调用，可以用另一个`trap`:`construct`
+
+```javascript
+function add (a, b) {
+  return a + b
+}
+
+let proxy = new Proxy(add, {
+  construct (target, argumentsList, newTarget) {
+    throw new Error(`Function ${target.name} cannot be invoked with 'new'`)
+  }
+})
+
+proxy(1, 2)     // 3
+new proxy(1, 2) // throw an error
+```
+
+### 全部的Proxy traps
+
+这里列出了`handlers`所有可以拦截的行为 *(traps)*：  
+
+traps|description
+:-:|:-:
+get|获取某个`key`值
+set|设置某个`key`值
+deleteProperty|删除一个`property`
+apply|函数调用，仅在代理对象为`function`时有效
+construct|函数通过实例化调用，仅在代理对象为`function`时有效
+has|使用`in`操作符判断某个`key`是否存在
+ownKeys|获取目标对象所有的`key`
+defineProperty|定义一个新的`property`
+isExtensible|判断对象是否可扩展，`Object.isExtensible`的代理
+getPrototypeOf|获取原型对象
+setPrototypeOf|设置原型对象
+preventExtensions|在设置对象为不可扩展
+getOwnPropertyDescriptor|获取一个自有属性 *（不会去原型链查找）* 的属性描述
+
+
+
+
+<!--
 ## 为什么要使用Proxy
 
 ## 怎么使用Proxy
 
-## 如何做一些有意思的事情
+## 如何做一些有意思的事情 -->
 
 <!--
 ## Proxy都能做什么
