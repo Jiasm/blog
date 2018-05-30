@@ -166,7 +166,7 @@ materialcdn:
 #     duoshuo | disqus | disqus_click | changyan
 comment:
     use: disqus
-    shortname: jiashunming
+    shortname: jarvis1996
     duoshuo_thread_key_type: path
     duoshuo_embed_js_url: "https://static.duoshuo.com/embed.js"
     changyan_appid:
