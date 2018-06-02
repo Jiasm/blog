@@ -63,21 +63,6 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: hexo-theme-sheet
 
-menu:
-  Home: /
-  About: /about
-  Contact: /contact
-  Friends: /links
-  Github: https://github.com/jiasm
-
-disqus_shortname: jarvis1996
-
-contact:
-  email: "mailto:jiashunming@outlook.com"
-  facebook: "https://www.facebook.com/jiashunming"
-  twitter: "https://twitter.com/jiashm"
-  weibo: "https://weibo.com/jarvis1996"
-  github: "https://github.com/jiasm"
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
@@ -87,5 +72,5 @@ deploy:
 
 prism_plugin:
   mode: 'realtime'    # realtime/preprocess
-  theme: 'coy'
-  line_number: true    # default false
+  theme: 'okaidia'
+  line_number: false    # default false
