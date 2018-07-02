@@ -1,0 +1,4 @@
+semi: false
+parser: typescript
+singleQuote: true
+proseWrap: never
