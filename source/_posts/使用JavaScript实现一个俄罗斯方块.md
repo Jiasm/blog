@@ -11,6 +11,8 @@ tags:
 > 项目地址：https://github.com/Jiasm/tetris
 > 在线Demo：http://blog.jiasm.org/tetris/?width=16&height=40 (修改URL参数可以调整难度)
 
+<!-- more -->
+
 整体分成三块进行开发，使用面向对象式编程进行开发（其实我更喜欢用函数式编程，但苦于游戏的一些状态用对象来存储会更直观一些）：
 1. `Game`：
   1. 负责生成新的方块
