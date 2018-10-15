@@ -68,7 +68,7 @@ const infos: info = {
 以及在新的版本中更推荐使用内置函数`Record`来实现：  
 
 ```typescript
-const infos: Record<number, string | number> = {
+const infos: Record<string, string | number> = {
   a: 1,
   b: '2',
   c: true, // error
