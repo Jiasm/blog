@@ -337,9 +337,9 @@ const personal = new Personal('niko', 18)
 
 ```typescript
 interface PersonalIntl {
-  func1 (): any      // 实例属性
+  func1 (): any      // 原型链方法
 
-  func2: () => any   // 原型链属性
+  func2: () => any   // 实例属性
 }
 ```
 
