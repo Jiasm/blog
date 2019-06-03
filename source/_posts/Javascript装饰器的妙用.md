@@ -625,9 +625,9 @@ function parseFunc (target, name, descriptor) {
           case 'string':  arg[index] = String(arg[index])             break
           case 'boolean': arg[index] = String(arg[index]) === 'true'  break
         }
-
-        return descriptor.value.apply(this, arg)
       }
+
+      return descriptor.value.apply(this, arg)
     }
   }
 }
