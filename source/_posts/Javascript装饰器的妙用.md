@@ -544,6 +544,8 @@ function prefix(target, name) {
     ...descriptor,
     value: `wrap_${descriptor.value}`
   })
+
+  return target
 }
 
 console.log(Modal.name1) // wrap_Niko
