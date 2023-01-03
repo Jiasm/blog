@@ -12,8 +12,8 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://jiasm.org
-enforce_ssl: jiasm.org
+url: http://jiasm.github.io
+# enforce_ssl: jiasm.org
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
